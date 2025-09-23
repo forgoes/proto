@@ -1,0 +1,20 @@
+# all branches except main, dev, release/*
+# compile proto and generate code, push to SDK repos
+name: Push (feature branches)
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - dev
+      - release/**
+
+jobs:
+  sdk:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: proto } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-setup-action@v1
+      - run: buf lint && buf build
+      - run: buf generate

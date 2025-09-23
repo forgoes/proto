@@ -1,0 +1,26 @@
+name: Tag Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"          # Stable
+      - "v*.*.*-dev.*"    # Dev
+      - "v*.*.*-alpha.*"  # Alpha
+      - "v*.*.*-beta.*"   # Beta
+      - "v*.*.*-rc.*"     # RC
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-action@v1
+        with:
+          token: ${{ secrets.BUF_TOKEN }}
+          lint: true
+          format: true
+          breaking: true
+          breaking_against: .git#branch=main

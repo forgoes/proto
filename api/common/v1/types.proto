@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package api.common.v1;
+
+option go_package = "example.com/project/gen/go/api/common/v1;commonv1";
+
+message PageRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message PageResponse {
+  int32 total = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message ResourceRef {
+  string id = 1;
+  string type = 2;
+}
+
+message UserInfo {
+  string id = 1;
+  string email = 2;
+  string display_name = 3;
+}

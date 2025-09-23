@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package api.common.v1;
+
+import "google/rpc/status.proto";
+
+option go_package = "example.com/project/gen/go/api/common/v1;commonv1";
+
+enum BusinessErrorCode {
+BUSINESS_ERROR_CODE_UNSPECIFIED = 0;
+VISA_INVALID = 1;
+PERMIT_EXPIRED = 2;
+}
+
+message BusinessError {
+BusinessErrorCode code = 1;
+string reason = 2;
+string domain = 3;
+}

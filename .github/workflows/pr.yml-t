@@ -1,0 +1,31 @@
+# protected branches only
+# compile proto and generate code, push to BSR
+name: Pull Request Merge (protected branches)
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - release/**
+
+jobs:
+  bsr:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: proto } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-setup-action@v1
+      - run: buf lint && buf build
+      - run: buf breaking --against .git#ref=origin/main
+      - name: Push to BSR
+        env: { BUF_TOKEN: ${{ secrets.BUF_TOKEN }} }
+        run: buf push
+
+  sdk:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: proto } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-setup-action@v1
+      - run: buf generate

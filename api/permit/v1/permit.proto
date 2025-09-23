@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package api.permit.v1;
+
+import "api/common/v1/types.proto";
+
+option go_package = "example.com/project/gen/go/api/permit/v1;permitv1";
+
+service PermitService {
+  rpc GetPermit(GetPermitRequest) returns (GetPermitResponse);
+  rpc IssuePermit(IssuePermitRequest) returns (IssuePermitResponse);
+}
+
+message Permit {
+  string id = 1;
+  string holder_name = 2;
+  string category = 3;
+  string status = 4;
+}
+
+message GetPermitRequest {
+  string id = 1;
+}
+
+message GetPermitResponse {
+  Permit permit = 1;
+}
+
+message IssuePermitRequest {
+  string holder_name = 1;
+  string category = 2;
+}
+
+message IssuePermitResponse {
+  Permit permit = 1;
+}

@@ -18,6 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - uses: bufbuild/buf-action@v1
         with:
@@ -28,7 +29,7 @@ jobs:
         run: buf generate
       - name: Publish Go SDK
         run: |
-          git clone https://github.com/forgoes/proto-go
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/forgoes/proto-go
           cd proto-go
           shopt -s extglob
           rm -rf !(go.mod|README.md|LICENSE|.gitignore|.git)

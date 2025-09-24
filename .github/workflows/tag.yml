@@ -24,3 +24,23 @@ jobs:
           format: true
           breaking: ${{ !contains(github.event.head_commit.message, 'buf skip breaking') }}
           breaking_against: .git#branch=main
+      - name: Generate SDK
+        run: buf generate
+      - name: Publish Go SDK
+        run: |
+          git clone https://github.com/forgoes/proto-go
+          cd proto-go
+          shopt -s extglob
+          rm -rf !(go.mod|README.md|LICENSE|.gitignore|.git)
+          cp -r ../gen/go/* .
+  
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add .
+          git commit -m "Update SDK for $GITHUB_REF_NAME" || echo "No changes to commit"
+
+          git push origin main
+          
+          git tag $GITHUB_REF_NAME
+          git push origin $GITHUB_REF_NAME

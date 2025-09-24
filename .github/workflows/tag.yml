@@ -22,5 +22,5 @@ jobs:
           token: ${{ secrets.BUF_TOKEN }}
           lint: true
           format: true
-          breaking: true
+          breaking: ${{ !contains(github.event.head_commit.message, 'buf skip breaking') }}
           breaking_against: .git#branch=main

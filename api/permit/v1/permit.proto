@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package api.permit.v1;
 
-import "api/common/v1/types.proto";
-
 option go_package = "example.com/project/gen/go/api/permit/v1;permitv1";
 
 service PermitService {

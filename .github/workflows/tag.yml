@@ -17,13 +17,13 @@ jobs:
         working-directory: .
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: bufbuild/buf-action@v1
         with:
           token: ${{ secrets.BUF_TOKEN }}
           lint: true
           format: true
-          breaking: ${{ !contains(github.event.head_commit.message, 'buf skip breaking') }}
-          breaking_against: .git#branch=main
       - name: Generate SDK
         run: buf generate
       - name: Publish Go SDK

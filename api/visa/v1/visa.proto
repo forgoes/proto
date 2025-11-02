@@ -13,5 +13,5 @@ message EchoResponse {
 }
 
 service VisaService {
-  rpc Echo (EchoRequest) returns (EchoResponse);
+  rpc Echo(EchoRequest) returns (EchoResponse);
 }

@@ -4,10 +4,14 @@ package api.visa.v1;
 
 option go_package = "github.com/forgoes/proto-go/api/visa/v1;v1";
 
-message StringMessage {
+message EchoRequest {
+  string value = 1;
+}
+
+message EchoResponse {
   string value = 1;
 }
 
 service VisaService {
-  rpc Echo(StringMessage) returns (StringMessage) {}
+  rpc Echo (EchoRequest) returns (EchoResponse);
 }

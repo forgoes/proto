@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package api.visa.v1;
 
+import "google/api/annotations.proto";
+
 option go_package = "github.com/forgoes/proto-go/api/visa/v1;v1";
 
 message EchoRequest {
@@ -13,5 +15,10 @@ message EchoResponse {
 }
 
 service VisaService {
-  rpc Echo(EchoRequest) returns (EchoResponse);
+  rpc Echo(EchoRequest) returns (EchoResponse) {
+    option (google.api.http) = {
+      post: "/rpc/v1/echo"
+      body: "*"
+    };
+  }
 }

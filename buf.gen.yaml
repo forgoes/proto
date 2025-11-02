@@ -12,7 +12,10 @@ plugins:
     out: gen/go
     opt:
       - paths=source_relative
-
+  - remote: buf.build/grpc-ecosystem/gateway:v2.27.3
+    out: gen
+    opt:
+      - paths=source_relative
   # python
   - remote: buf.build/protocolbuffers/python
     out: gen/python

@@ -17,7 +17,7 @@ message EchoResponse {
 service VisaService {
   rpc Echo(EchoRequest) returns (EchoResponse) {
     option (google.api.http) = {
-      post: "/rpc/v1/echo"
+      post: "/rpc/v1/echo1"
       body: "*"
     };
   }
